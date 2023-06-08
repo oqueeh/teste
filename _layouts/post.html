@@ -1,0 +1,246 @@
+
+{% include head-post.html %}
+
+<body>
+    <header class="page-template {{ page.classe_categoria }}">
+      <div class="container">
+        <div class="items-menu">
+          <div class="menu">
+            <img src="/imagens/menu.svg" alt="Ícone do menu" />
+          </div>
+          <div class="logos-top">
+            <img class="logos-svg" src="/imagens/logos-top.svg" alt="" />
+          </div>
+          <div class="search">
+            <p>Buscar</p>
+            <img
+              class="search-icon"
+              src="/imagens/lupa.svg"
+              alt="Ícone de busca"
+            />
+          </div>
+        </div>
+        <div class="container-termo">
+          <div class="termo">
+            <h1>O que é <br /><strong>{{ page.title }}</strong><strong> ?</strong></h1>
+            <!-- <p>?</p> -->
+          </div>
+          <div class="btn-redes">
+            <img src="/imagens/btn-zap.svg" alt="" />
+            <img src="/imagens/btn-twitter.svg" alt="" />
+            <img src="/imagens/btn-link.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="term-content">
+      <section class="video">
+        <iframe
+          width="280"
+          height="530"
+          src="https://www.youtube.com/embed/lTuuVsDiXUw"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </section>
+
+      <section class="text">
+        <article>
+            {{ page.content }}
+        </article>
+      </section>
+
+      <section class="news">
+        <p>Saiba mais</p>
+        <div>
+          <a href="#" target="”_blank”">
+            <img src="/imagens/image-news-test.png" alt="" />
+            <div class="title-news">
+              <h3>
+                A linguagem dos millennials: 5 termos populares que você precisa
+                conhecer
+              </h3>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="data {{ page.classe_categoria }}">
+        <div class="graphic-week">
+          <h3>Interesse de busca na última semana</h3>
+
+          <div id="graphic-line" class="graphic">
+            <canvas id="lineChart" width="600" height="300"></canvas>
+          </div>
+        </div>
+        <p class="btn-detalhes"></p>
+        <div class="more-infos">
+          <p>entenda os dados</p>
+          <p>
+            Os valores indicam o nível de interesse de pesquisa pelo termo
+            durante um determinado período. Uma pontuação de 100 representa o
+            ápice de popularidade de um termo. Já um valor de 50 significa que o
+            termo teve metade da popularidade. Por fim, a uma taxa de 0 indica
+            que não havia dados suficientes disponíveis para o termo em questão.
+          </p>
+        </div>
+      </section>
+
+      <section class="other-terms">
+        <h3>Outros termos em alta na semana</h3>
+        <div class="terms">
+          <div class="politics">icms</div>
+          <div class="health">esg</div>
+          <div class="economy">irpf</div>
+          <div class="politics">arcabouço fiscal</div>
+          <div class="sports">odds</div>
+          <div class="politics">cpmi</div>
+          <div class="culture">lollapaloza</div>
+          <div class="sports">impedimento</div>
+          <div class="international">mono</div>
+        </div>
+      </section>
+
+      
+    </main>
+
+    <div class="back-home {{ page.classe_categoria }}">
+      <a href="/index.html">
+        <img src="/imagens/icon-back-home.png" alt="">
+      </a>
+    </div>
+
+
+    {% include footer.html %}
+
+
+    <!-- <script src="/template/page.js"></script> -->
+    <script>
+
+      // atualizar cor da pagina
+      // document.querySelector("body > header.page-template").style.backgroundColor = { page.cor }
+
+      createdGraphicWeek();
+
+      function createdGraphicWeek() {
+        // Dados
+        const data = [
+          { date: "2023-05-14", average: 10.0 },
+          { date: "2023-05-15", average: 11.16 },
+          { date: "2023-05-16", average: 21.63 },
+          { date: "2023-05-17", average: 9.17 },
+          { date: "2023-05-18", average: 9.96 },
+          { date: "2023-05-19", average: 21.48 },
+          { date: "2023-05-20", average: 18.69 },
+          { date: "2023-05-21", average: 14.67 },
+        ];
+
+        // Preparar os dados para o gráfico
+        const dates = data.map((obj) => moment(obj.date).format("DD/M"));
+        const averages = data.map((obj) => obj.average);
+
+        let lineChartCanvas = document.getElementById("lineChart");
+        let ctx = lineChartCanvas.getContext("2d");
+        let gradientFill = ctx.createLinearGradient(0, 0, 0, 200);
+        gradientFill.addColorStop(0, "rgba(255,255,255,0.4)"); // Tom de branco mais forte no topo
+        gradientFill.addColorStop(1, "rgba(255,255,255,0.001)"); // Tom de branco mais suave na parte de baixo
+
+        // Configurar o gráfico
+        let chart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: dates,
+            datasets: [
+              {
+                label: "Média",
+                data: averages,
+                backgroundColor: "rgba(0, 123, 255, 0.0)",
+                borderColor: "white",
+                borderWidth: 3,
+                lineTension: 0.4,
+                fill: true, // Preencher a área abaixo da linha
+                backgroundColor: gradientFill, // Gradiente de cor de fundo
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false, // Desabilitar a manutenção do aspect ratio
+            scales: {
+              x: {
+                grid: {
+                  display: false, // Remover as grades do eixo X
+                },
+                title: {
+                  display: true,
+                  //   text: 'Data',
+                  color: "rgba(255, 255, 255, 0.5)", // Cor do texto do eixo X com 50% de opacidade
+                },
+                ticks: {
+                  color: "rgba(255, 255, 255, 0.5)", // Cor dos rótulos do eixo X com 50% de opacidade
+                },
+              },
+              y: {
+                grid: {
+                  display: false, // Remover as grades do eixo Y
+                },
+                title: {
+                  display: true,
+                  //   text: 'Média',
+                  color: "rgba(255, 255, 255, 0.5)", // Cor do texto do eixo Y com 50% de opacidade
+                },
+                ticks: {
+                  color: "rgba(255, 255, 255, 0.5)", // Cor dos rótulos do eixo Y com 50% de opacidade
+                  maxTicksLimit: 4, // Exibir apenas três valores no eixo Y
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: false, // Remover o rótulo "Média" do gráfico
+              },
+            },
+          },
+        });
+      }
+
+
+    document.querySelector("section.data > p.btn-detalhes").addEventListener("click", e =>{
+      document.querySelector("section.data > div.more-infos").classList.toggle("active")
+      document.querySelector("section.data > p.btn-detalhes").classList.toggle("active")
+    })
+
+    // AJUSTANDO O TAMANHO DO TERMO
+
+    const elemento = document.querySelector("header.page-template .container h1 strong");
+const textoTermo = elemento.innerText;
+
+function verificarTamanhoTela() {
+  const larguraTela = window.innerWidth;
+  const largura = elemento.offsetWidth;
+
+  if (textoTermo.length > 6) {
+    elemento.style.fontSize = "3rem";
+    elemento.innerHTML = textoTermo.replace(/ /g, "<br>");
+
+    if (larguraTela <= 660) {
+      document.querySelector("body header.page-template").style.height = "825px";
+      document.querySelector("header.page-template .container-termo").style.gap = "537px";
+    } else {
+      document.querySelector("body header.page-template").style.height = "";
+      document.querySelector("header.page-template .container-termo").style.gap = "";
+    }
+  }
+}
+
+// Chamar a função verificarTamanhoTela inicialmente
+verificarTamanhoTela();
+
+// Adicionar evento de escuta para redimensionamento da janela
+window.addEventListener("resize", verificarTamanhoTela);
+
+
+
+    </script>
+  </body>

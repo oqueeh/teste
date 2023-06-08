@@ -1,0 +1,71 @@
+
+{% include head.html %}
+
+<body>
+    <header>
+        <div class="container">
+            <div class="items-menu">
+                <img class="menu" src="./imagens/menu.svg" alt="Ícone do menu">
+                <div class="search">
+                    <p>Buscar</p>
+                    <img class="search-icon" src="./imagens/lupa.svg" alt="Ícone de busca">
+                </div>
+            </div>
+            <div class="infos-project">
+                <div class="caixa">
+                    <h1>O que é... 
+                        <span class="text_1">flopou?</span>
+                        <span class="text_2">hostel?</span>
+                        
+                    </h1>
+                </div>
+                <h2 class="descricao">O projeto que te ajuda a entender o que está no noticiário</h2>
+            </div>
+            <div class="logos">
+                <img class="estadao" src="./imagens/logo-estadao.svg" alt="">
+                <img class="trends" src="./imagens/logo-google-trends.svg" alt="" >
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+        <section class="container week">
+            <p>Em alta na semana</p>
+            <nav class="menu-categories">
+                <div class="btn all">Todos</div>
+                <div class="btn politics">Política</div>
+                <div class="btn economy">Economia</div>
+                <div class="btn health">Saúde</div>
+                <div class="btn sports">Esportes</div>
+                <div class="btn culture">Cultura</div>
+                <div class="btn international">Internacional</div>
+            </nav>
+            <div id="treemap-week"></div>
+            <p class="update">Dados atualizados em 10.04.2023, às 17h30</p>
+            <div class="line"></div>
+        </section>
+
+        <section class="container month">
+            <p>Em alta no mês</p>
+            <nav class="menu-categories">
+                <div class="btn all">Todos</div>
+                <div class="btn politics">Política</div>
+                <div class="btn economy">Economia</div>
+                <div class="btn health">Saúde</div>
+                <div class="btn sports">Esportes</div>
+                <div class="btn culture">Cultura</div>
+                <div class="btn international">Internacional</div>
+            </nav>
+            <div id="treemap-month"></div>
+            <p class="update">Dados atualizados em 10.04.2023, às 17h30</p>
+        </section>
+
+    </main>
+
+    {% include footer.html %}
+
+    
+    <script src="../assets/main.js"></script>
+</body>
+</html>
